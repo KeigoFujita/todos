@@ -11,14 +11,18 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
+
     <style>
-        .todo-item {
+        .todo-upper {
             display: flex;
             justify-content: space-between;
         }
 
-        .todo-item p {
+        .todo-upper p {
             display: inline-block;
             font-size: 1.5rem;
             margin-bottom: 10px;
@@ -36,6 +40,22 @@
             text-decoration: line-through;
         }
 
+        .font-size-1p5 {
+            font-size: 1.5rem;
+        }
+
+        .font-size-2 {
+            font-size: 2rem;
+        }
+
+        .font-size-2p5 {
+            font-size: 2.5rem;
+        }
+
+        .font-size-3 {
+            font-size: 3rem;
+        }
+
     </style>
 </head>
 
@@ -51,51 +71,64 @@
         @endif
         <div class="card mx-auto w-75">
             <div class="card-header pb-0">
-                <a href="/" class="text-dark" style="font-size: 2rem"><i class="fa fa-home"></i></a>
-                <a href="/todos/create" class="btn btn-success btn-sm float-right">Add Todo</a>
+                <a href="/" class="text-dark" style="font-size: 2rem;"><i class="fa fa-home"></i></a>
+                <a href="/todos/create" class="btn btn-success btn-sm float-right mt-2">
+                    <i class="fa fa-plus mr-1"></i> Add Todo
+                </a>
             </div>
             <div class="card-body">
 
                 @forelse ($todos as $todo)
-                <div class="todo-item border-bottom mb-2">
+                <div class="todo border-bottom pb-2 mb-2 d-flex justify-content-between">
 
-                    <div class="w-75">
-                        <a href="/todos/makeCompleted/{{ $todo->id }}" class="mr-2 
-                    
-                            @if($todo->finished)
-                            text-success
-                            @else
-                            text-secondary
-                            @endif
-                            "><i class="fa fa-check"></i></a>
-                        <p class="
-                            @if($todo->finished)
-                            text-line-through
-                            @endif
-                            ">{{ $todo->description }}</p>
+                    <a href="/todos/makeCompleted/{{ $todo->id }}" class="mr-2 mt-1 
+                        
+                        @if($todo->finished)
+                        text-success
+                        @else
+                        text-secondary
+                        @endif
+                        "><i class="fa fa-check"></i></a>
+
+                    <div class="description" style="flex-grow:1;">
+                        <p class="mb-0 font-size-1p5
+                        @if($todo->finished)
+                        text-line-through
+                        @endif
+                        ">{{ $todo->description }}</p>
+                        <div>{{ $todo->present_created_at() }}</div>
                     </div>
 
-                    {{-- <form action="" class="d-inline-block">
-                    <button type="submit" class="btn btn-info btn-sm float-right">Edit</button>
-                    </form> --}}
-
                     <div class="actions">
-                        <a href="/todos/edit/{{ $todo->id }}" class="btn btn-info btn-sm">Edit</a>
+                        <a href="/todos/edit/{{ $todo->id }}" class="btn btn-light text-info font-size-1"
+                            data-toggle="tooltip" data-placement="top" title="Edit">
+                            <i class="fa fa-edit"></i>
+                        </a>
                         <form action="/todos/delete/{{ $todo->id }}" class="d-inline-block" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-light text-danger font-size-1" data-toggle="tooltip"
+                                data-placement="top" title="Delete">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </form>
                     </div>
                 </div>
+
                 @empty
                 <div class="d-flex flex-center ">
-                    <h3 class="">No Todos</h3>
+                    <h3>No Todos</h3>
                 </div>
                 @endforelse
             </div>
         </div>
     </div>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
 </body>
 
 </html>

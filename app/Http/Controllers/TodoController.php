@@ -80,7 +80,7 @@ class TodoController extends Controller
     {
 
         $request->validate([
-            'description' => 'required|max:15|min:3'
+            'description' => 'required|max:50|min:3'
         ]);
         $description = $request->description;
         $todo = Todo::find($id);
