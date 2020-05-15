@@ -8,9 +8,10 @@
     <title>Todo</title>
 
     <!-- Fonts -->
+    <link rel="shortcut icon" href="/icons/icon.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <style>
 
     </style>
